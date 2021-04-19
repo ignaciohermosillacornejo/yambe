@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { CardComponentModule } from './components/card/card.component.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
   ],
-  providers: [],
+  entryComponents: [
+    CardComponentModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

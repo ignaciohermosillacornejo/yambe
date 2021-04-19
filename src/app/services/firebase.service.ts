@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Cards } from '../models/cards.interface';
+import { Card } from '../models/card.interface';
 import { Observable } from 'rxjs';
 
 const CARDS_COLLECTION = 'cards';
@@ -14,7 +14,7 @@ export class FirebaseService {
     public firestore: AngularFirestore
     ) { }
 
-  public getCards(): Observable<Cards[]> {
+  public getCards(): Observable<Card[]> {
     return this.getFirebaseCollection(CARDS_COLLECTION).valueChanges();
   }
 

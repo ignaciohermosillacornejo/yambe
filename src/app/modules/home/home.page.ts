@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cards } from 'src/app/models/cards.interface';
+import { Card } from 'src/app/models/card.interface';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./home.page.scss']
 })
 export class HomePage implements OnInit {
-  public cards: Cards[];
+  public cards: Card[];
 
   constructor(
     public firebaseService: FirebaseService,

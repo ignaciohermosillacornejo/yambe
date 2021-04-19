@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CardComponentModule } from 'src/app/components/card/card.component.module';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -12,6 +14,10 @@ import { HomePage } from './home.page';
         component: HomePage,
       },
     ]),
+    CardComponentModule,
+  ],
+  providers: [
+    FirebaseService,
   ],
   declarations: [
     HomePage,

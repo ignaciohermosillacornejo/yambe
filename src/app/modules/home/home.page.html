@@ -1,6 +1,7 @@
 <p>Yambe works!</p>
 <div *ngFor="let card of cards">
-    <div class="card">
-        {{ card.content }}
-    </div>
+    <app-card
+        [content]="card.content"
+        [color]="card.color"
+    ></app-card>
 </div>
