@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "yambe-dev": {
+      "hosting": {
+        "yambe": [
+          "yambe-dev"
+        ]
+      }
+    }
+  }
+}
