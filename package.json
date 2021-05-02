@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "serve:dev": "ng serve",
-    "build": "ng build",
+    "serve:dev": "npm run environment:dev; ng serve",
+    "serve:prod": "npm run environment:prod; ng serve",
+    "build:dev": "npm run environment:dev; ng build",
+    "build:prod": "npm run environment:prod; ng build",
+    "environment:dev": "cp src/environments/environment.dev.ts src/environments/environment.ts",
+    "environment:prod": "cp src/environments/environment.prod.ts src/environments/environment.ts",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
