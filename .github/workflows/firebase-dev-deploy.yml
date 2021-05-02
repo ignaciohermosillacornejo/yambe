@@ -32,6 +32,6 @@ jobs:
       - run: npm run build:prod
       - uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --only hosting --project dev
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_DEV_TOKEN }}
