@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CardType } from 'src/app/models/card.interface';
 
 @Component({
   selector: 'app-card',
@@ -6,11 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() public content: boolean;
-  @Input() public color: boolean;
+  @Input() public content: string;
+  @Input() public cardType: CardType;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  public get color() { return this.cardType === 'question' ? 'black' : 'white'; }
 }

@@ -1,4 +1,6 @@
 export interface Card {
     content: string;
-    color: string;
+    type: CardType;
 }
+
+export type CardType = 'answer' | 'question';

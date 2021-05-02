@@ -1,7 +1,10 @@
 <p>Yambe works!</p>
+<div class="brand-button primary">Start a game</div>
+<div>Join a game</div>
 <div *ngFor="let card of cards">
     <app-card
         [content]="card.content"
-        [color]="card.color"
-    ></app-card>
+        [cardType]="card.type"
+    >
+    </app-card>
 </div>
