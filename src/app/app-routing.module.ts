@@ -5,7 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomePageModule),
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
+  },
+  {
+    path: 'game',
+    loadChildren: () => import('./pages/game/game.module').then(m => m.GamePageModule),
   },
   {
     path: '**',

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Card } from 'src/app/models/card.interface';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
@@ -12,9 +13,10 @@ export class HomePage implements OnInit {
 
   constructor(
     public firebaseService: FirebaseService,
+    public router: Router,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     console.log('HomePage');
     this.firebaseService.getCards().subscribe(
       (cards) => {
@@ -24,4 +26,7 @@ export class HomePage implements OnInit {
     );
   }
 
+  public startGame(): void {
+    this.router.navigateByUrl('/game');
+  }
 }
