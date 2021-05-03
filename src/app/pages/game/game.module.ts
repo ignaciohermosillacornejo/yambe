@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CardComponentModule } from 'src/app/components/card/card.component.module';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { GamePage } from './game.page';
+import { GamePageComponent } from './game.page';
 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { GamePage } from './game.page';
     RouterModule.forChild([
       {
         path: '',
-        component: GamePage,
+        component: GamePageComponent,
       },
     ]),
     CardComponentModule,
@@ -20,7 +20,7 @@ import { GamePage } from './game.page';
     FirebaseService,
   ],
   declarations: [
-    GamePage,
+    GamePageComponent,
   ]
 })
 export class GamePageModule {}
