@@ -7,20 +7,16 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   templateUrl: './game.page.html',
   styleUrls: ['./game.page.scss']
 })
-export class GamePage implements OnInit {
+export class GamePageComponent implements OnInit {
   public cards: Card[];
 
   constructor(
     public firebaseService: FirebaseService,
   ) { }
 
-  public ngOnInit(): void {
-    console.log('GamePage');
-    this.firebaseService.getCards().subscribe(
-      (cards) => {
-        console.log('cards', cards);
-        this.cards = cards;
-      }
-    );
+  public async ngOnInit(): Promise<void> {
+    console.log('GamePageComponent');
+    this.cards = await this.firebaseService.getDeck();
+    console.log('this.cards', this.cards);
   }
 }

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CardComponentModule } from 'src/app/components/card/card.component.module';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { HomePage } from './home.page';
+import { HomePageComponent } from './home.page';
 
 @NgModule({
   imports: [
@@ -11,16 +11,13 @@ import { HomePage } from './home.page';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage,
+        component: HomePageComponent,
       },
     ]),
     CardComponentModule,
   ],
-  providers: [
-    FirebaseService,
-  ],
   declarations: [
-    HomePage,
+    HomePageComponent,
   ]
 })
 export class HomePageModule {}

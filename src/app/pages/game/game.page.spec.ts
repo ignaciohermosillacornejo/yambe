@@ -1,19 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { GamePage } from './game.page';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { FirebaseServiceMock } from 'src/app/services/firebase.service.mock';
+import { GamePageComponent } from './game.page';
 
-describe('GamePage', () => {
-  let component: GamePage;
-  let fixture: ComponentFixture<GamePage>;
+describe('GamePageComponent', () => {
+  let component: GamePageComponent;
+  let fixture: ComponentFixture<GamePageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GamePage ]
+      declarations: [ GamePageComponent ],
+      providers: [
+        { provide: FirebaseService, useClass: FirebaseServiceMock },
+      ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GamePage);
+    fixture = TestBed.createComponent(GamePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
