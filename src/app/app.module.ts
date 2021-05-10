@@ -8,6 +8,8 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { CardComponentModule } from './components/card/card.component.module';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -18,10 +20,16 @@ import { CardComponentModule } from './components/card/card.component.module';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
   ],
   entryComponents: [
     CardComponentModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ],
+  providers: [
+    AuthService
+  ]
 })
 export class AppModule { }
