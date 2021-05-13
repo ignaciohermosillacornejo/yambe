@@ -4,10 +4,13 @@ import { RouterModule } from '@angular/router';
 import { CardComponentModule } from 'src/app/components/card/card.component.module';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { HomePageComponent } from './home.page';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule, 
+    ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: '',

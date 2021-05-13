@@ -10,6 +10,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { CardComponentModule } from './components/card/card.component.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { AuthService } from './services/auth/auth.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule, 
+    ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

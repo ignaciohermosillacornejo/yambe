@@ -1,19 +1,22 @@
 <p>Yambe works!</p>
 
-<h1>Base</h1>
+<h1> {{ authService.isLogedIn }} </h1>
 
-<div *ngIf="authService.isLogedIn as user; else login">
-  <pre>
-    {{ user | json }}
-  </pre>
+<div>
   <hr>
   <button class="button" (click)="authService.signOut()">Sign Out</button>
 </div>
 
+<form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" #login>
+  
+  <div class="form-group">
+    <label for="displayName">Name</label>
+    <input id="displayName" type="text" formControlName="displayName">
+  </div>
 
-<ng-template #login>
-  <button class="button" (click)="authService.googleAuth()">Sign In</button>
-</ng-template>
+  <button class="button" type="submit">Submit</button>
+
+</form>
 
 <div class="brand-button primary" (click)="startGame()">Start a game</div>
 <div class="brand-button primary">Join a game</div>
