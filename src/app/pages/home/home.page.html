@@ -2,6 +2,10 @@
 
 <h1> {{ authService.isLogedIn }} </h1>
 
+<div class="row" *ngIf="authService.user as user">
+  <h1>Hello: <strong>{{ user.displayName }}</strong></h1>
+</div>
+
 <div>
   <hr>
   <button class="button" (click)="authService.signOut()">Sign Out</button>

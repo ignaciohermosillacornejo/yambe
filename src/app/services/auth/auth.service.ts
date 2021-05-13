@@ -20,40 +20,35 @@ export class AuthService {
     /** Save user data in browser localstorage when
      * logged in and null when logged out
      */
-    this.fireAuth.authState.subscribe(user => {
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-      } else {
-        localStorage.setItem('user', null);
-      }
-    })
   }
 
   async anonymousLogin(displayName: string) {
     const result = await this.fireAuth.signInAnonymously();
-    const user = result.user;
-    const data = {
-      uid: user.uid,
+    const user = {
+      uid: result.user.uid,
       displayName,
       photoURL: 'TODO',
     }
-    const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${user.uid}`);
-    userRef.set(data, { merge: true });
+    localStorage.setItem('user', JSON.stringify(user));
   }
-    
-  get isLogedIn(): boolean {
+
+  public updateDisplayName(displayName: string) {
+    const user = this.user;
+    user.displayName = displayName;
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  public get user(): User {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  public get isLogedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null) ? true : false;
   }
 
   public async signOut() {
-    await this.fireAuth.signOut();
+    localStorage.removeItem('user');
     return this.router.navigate(['/']);
   }
-
-  private updateUserData(data) {
-
-  }
-
-
 }
