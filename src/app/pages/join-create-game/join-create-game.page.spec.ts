@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { FirebaseServiceMock } from 'src/app/services/firebase/firebase.service.mock';
-import { GamePageComponent } from './game.page';
+import { JoinCreateGamePageComponent } from './join-create-game.page';
 
 describe('GamePageComponent', () => {
-  let component: GamePageComponent;
-  let fixture: ComponentFixture<GamePageComponent>;
+  let component: JoinCreateGamePageComponent;
+  let fixture: ComponentFixture<JoinCreateGamePageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GamePageComponent ],
+      declarations: [ JoinCreateGamePageComponent ],
       providers: [
         { provide: FirebaseService, useClass: FirebaseServiceMock },
       ]
@@ -18,7 +18,7 @@ describe('GamePageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GamePageComponent);
+    fixture = TestBed.createComponent(JoinCreateGamePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

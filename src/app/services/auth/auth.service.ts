@@ -42,7 +42,7 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user'));
   }
 
-  public get isLogedIn(): boolean {
+  public get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null) ? true : false;
   }

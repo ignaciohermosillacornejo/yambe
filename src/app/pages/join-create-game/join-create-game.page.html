@@ -1,0 +1,16 @@
+<p> Welcome! Please join or create a new game </p>
+
+<form [formGroup]="joinGameForm" (ngSubmit)="submitJoinGameForm()" #login>
+  
+    <div class="form-group">
+      <label for="gameId">gameId</label>
+
+      <input id="gameId" type="text" formControlName="gameId">
+      <div class="invalid-form" *ngIf="invalidFormSubmitAttempt">
+        Invalid Game Id!
+      </div>
+    </div>
+  
+    <button class="button" type="submit">Submit</button>
+  
+  </form>

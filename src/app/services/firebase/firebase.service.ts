@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
-import { Card } from '../models/card.interface';
+import { Card } from '../../models/card.interface';
 
 const CARDS_COLLECTION = 'cards';
+const GAMES_COLLECTION = 'games';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,13 @@ export class FirebaseService {
     }
     );
     return cards;
+  }
+
+  public async validateGameId(gameId: string): Promise<boolean> { // 29fyY4af1DqbllTdd6Jy
+    const docRef = this.firestore.doc(GAMES_COLLECTION + '/' + gameId).get()
+    return docRef.toPromise().then((docSnapshot => {
+        return docSnapshot.exists? true: false;
+      }));
   }
 
   public async getCurrentQuestionCard(): Promise<Card> {

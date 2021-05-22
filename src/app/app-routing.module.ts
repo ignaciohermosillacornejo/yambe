@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from './services/auth/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -9,7 +11,26 @@ const routes: Routes = [
   },
   {
     path: 'game',
-    loadChildren: () => import('./pages/game/game.module').then(m => m.GamePageModule),
+    children: [
+      {
+        path: '',
+        canActivate: [ AuthGuard ],
+        loadChildren: () => import('./pages/join-create-game/join-create-game.module').then(m => m.JoinCreateGamePageModule),
+        pathMatch: 'full',
+      },
+      {
+        path: 'new',
+        canActivate: [ AuthGuard ],
+        loadChildren: () => import('./pages/new-game/game.module').then(m => m.GamePageModule),
+        pathMatch: 'full',
+      },
+      {
+        path: ':id',
+        canActivate: [ AuthGuard ],
+        loadChildren: () => import('./pages/game/game.module').then(m => m.GamePageModule),
+        pathMatch: 'full',
+      }
+    ]
   },
   {
     path: '**',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CARDS_MOCK, QUESTION_CARD_MOCK } from '../mocks/card.mock';
-import { Card } from '../models/card.interface';
+import { CARDS_MOCK, QUESTION_CARD_MOCK } from '../../mocks/card.mock';
+import { Card } from '../../models/card.interface';
 
 @Injectable()
 export class FirebaseServiceMock {

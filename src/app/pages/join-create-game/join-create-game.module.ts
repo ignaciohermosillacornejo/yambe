@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CardComponentModule } from 'src/app/components/card/card.component.module';
-import { HomePageComponent } from './home.page';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { JoinCreateGamePageComponent } from './join-create-game.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -13,13 +14,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePageComponent,
+        component: JoinCreateGamePageComponent,
       },
     ]),
     CardComponentModule,
   ],
+  providers: [
+    FirebaseService,
+  ],
   declarations: [
-    HomePageComponent,
+    JoinCreateGamePageComponent,
   ]
 })
-export class HomePageModule {}
+export class JoinCreateGamePageModule {}

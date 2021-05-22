@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { FirebaseServiceMock } from 'src/app/services/firebase.service.mock';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { FirebaseServiceMock } from 'src/app/services/firebase/firebase.service.mock';
 
 import { HomePageComponent } from './home.page';
 

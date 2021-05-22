@@ -1,0 +1,8 @@
+<p>I Want to Play A Game!(Jigsaw, 2004)</p>
+<div *ngFor="let card of cards">
+    <app-card
+        [content]="card.content"
+        [cardType]="card.type"
+    >
+    </app-card>
+</div>
