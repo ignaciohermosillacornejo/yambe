@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
+  public redirectUrl: string;
 
   constructor(
     private firestore: AngularFirestore,
@@ -30,6 +31,15 @@ export class AuthService {
       photoURL: 'TODO',
     }
     localStorage.setItem('user', JSON.stringify(user));
+    console.log('loging in!')
+    console.log(this.redirectUrl)
+    if (this.redirectUrl) {
+      console.log(`redirectiong login in to ${this.redirectUrl}`)
+      this.router.navigate([this.redirectUrl]);
+      this.redirectUrl = null;
+    } else {
+      this.router.navigate(['/game']);
+    }
   }
 
   public updateDisplayName(displayName: string) {
