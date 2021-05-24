@@ -11,6 +11,7 @@
     "environment:prod": "cp src/environments/environment.prod.ts src/environments/environment.ts",
     "test": "ng test",
     "lint": "ng lint",
+    "lint-fix": "ng lint --fix=true",
     "e2e": "ng e2e"
   },
   "private": true,
