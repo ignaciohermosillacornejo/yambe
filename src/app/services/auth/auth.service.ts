@@ -29,12 +29,12 @@ export class AuthService {
       uid: result.user.uid,
       displayName,
       photoURL: 'TODO',
-    }
+    };
     localStorage.setItem('user', JSON.stringify(user));
-    console.log('loging in!')
-    console.log(this.redirectUrl)
+    console.log('loging in!');
+    console.log(this.redirectUrl);
     if (this.redirectUrl) {
-      console.log(`redirectiong login in to ${this.redirectUrl}`)
+      console.log(`redirectiong login in to ${this.redirectUrl}`);
       this.router.navigate([this.redirectUrl]);
       this.redirectUrl = null;
     } else {

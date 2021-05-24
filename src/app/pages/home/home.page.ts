@@ -21,7 +21,7 @@ export class HomePageComponent implements OnInit {
   // simple form to get the display name of the user
   loginForm = this.formBuilder.group({
     displayName: '',
-  })
+  });
 
   async submitLoginForm(){
     await this.authService.anonymousLogin(this.loginForm.value.displayName);
