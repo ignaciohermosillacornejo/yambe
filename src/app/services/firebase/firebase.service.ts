@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import { Card } from '../../models/card.interface';
@@ -12,26 +11,26 @@ const GAMES_COLLECTION = 'games';
 export class FirebaseService {
 
   constructor(
-    public firestore: AngularFirestore
+    public firestore: AngularFirestore,
     ) { }
 
   public async getDeck(): Promise<Card[]> {
     const cards = Array<Card>();
-    this.firestore.collection(CARDS_COLLECTION).get().subscribe(
-      { next: (querySnapshot: QuerySnapshot<DocumentData>) => {
+    await this.firestore.collection(CARDS_COLLECTION).get().toPromise().then(
+      (querySnapshot: QuerySnapshot<DocumentData>) => {
         querySnapshot.forEach((doc: any) => {
-          cards.push(doc.data());
+          const card = doc.data();
+          card.id = doc.ref.id;
+          cards.push(card);
         });
-      },
-    }
-    );
+    });
     return cards;
   }
 
   public async validateGameId(gameId: string): Promise<boolean> { // 29fyY4af1DqbllTdd6Jy
-    const docRef = this.firestore.doc(GAMES_COLLECTION + '/' + gameId).get()
+    const docRef = this.firestore.doc(GAMES_COLLECTION + '/' + gameId).get();
     return docRef.toPromise().then((docSnapshot => {
-        return docSnapshot.exists? true: false;
+        return docSnapshot.exists;
       }));
   }
 
