@@ -1,8 +1,13 @@
 <p>I Want to Play A Game!(Jigsaw, 2004)</p>
-<div *ngFor="let card of cards">
-    <app-card
-        [content]="card.content"
-        [cardType]="card.type"
-    >
+<div class="page">
+  <div class="card" *ngIf="questionCard">
+    <app-card [id]="questionCard.id" [content]="questionCard.content" [cardType]="questionCard.type">
     </app-card>
+  </div>
+  <div class="hand">
+    <div class="card" *ngFor="let card of cards">
+      <app-card [id]="card.id" [content]="card.content" [cardType]="card.type" [selected]="card.selected" (cardClick)=selectCard($event)>
+      </app-card>
+    <div>
+  </div>
 </div>

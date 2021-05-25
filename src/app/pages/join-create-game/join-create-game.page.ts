@@ -6,13 +6,11 @@ import { FormBuilder } from '@angular/forms';
 
 
 @Component({
-  selector: 'join-create-app-game',
+  selector: 'app-join-create-app-game',
   templateUrl: './join-create-game.page.html',
   styleUrls: ['./join-create-game.page.scss']
 })
 export class JoinCreateGamePageComponent implements OnInit {
-  public invalidFormSubmitAttempt: boolean;
-  private invalidFormSubmitAttemptTimeoutLock: number;
 
   constructor(
     public firebaseService: FirebaseService,
@@ -20,6 +18,12 @@ export class JoinCreateGamePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     public router: Router,
   ) { }
+  public invalidFormSubmitAttempt: boolean;
+  private invalidFormSubmitAttemptTimeoutLock: number;
+
+  public joinGameForm = this.formBuilder.group({
+    gameId: [null],
+  });
 
   private async showInvalidGameIdMessage(){
     clearTimeout(this.invalidFormSubmitAttemptTimeoutLock);
@@ -33,12 +37,8 @@ export class JoinCreateGamePageComponent implements OnInit {
     this.invalidFormSubmitAttempt = false;
   }
 
-  public joinGameForm = this.formBuilder.group({
-    gameId: [null],
-  })
-
   public async submitJoinGameForm(){
-    const gameId = this.joinGameForm.value.gameId
+    const gameId = this.joinGameForm.value.gameId;
     const validGameId = await this.firebaseService.validateGameId(gameId);
     if (validGameId) {
       this.router.navigateByUrl('/game/' + gameId);

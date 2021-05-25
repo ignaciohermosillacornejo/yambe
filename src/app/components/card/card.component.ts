@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardType } from 'src/app/models/card.interface';
 
 @Component({
@@ -7,8 +7,11 @@ import { CardType } from 'src/app/models/card.interface';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
+  @Input() public id: string;
   @Input() public content: string;
   @Input() public cardType: CardType;
+  @Input() public selected = false;
+  @Output() public cardClick = new EventEmitter<string>();
 
   constructor() { }
 
@@ -16,4 +19,6 @@ export class CardComponent implements OnInit {
   }
 
   public get color() { return this.cardType === 'question' ? 'black' : 'white'; }
+
+  public clickCard() { this.cardClick.emit(this.id); }
 }
