@@ -24,15 +24,18 @@ export class GamePageComponent implements OnInit {
 
   @HostListener('window:beforeunload')
   private async removeUser() {
-    // TODO do not run this when user reloads page
-    
+    // TODO do not run this when user reloads page (investigate how, posible filter by $event?)
+    const removeUserCallable = this.functions.httpsCallable('removeUserFromGame');
+    // TODO error handling
+    await removeUserCallable({gameId: this.id}).toPromise();
 
   }
 
   private async addUser(): Promise<void>{
     // TODO return error if user can't be added for some reason
-    // TOOD if user is already on game, don't add him twice
-
+    const addUserCallable = this.functions.httpsCallable('addUserToGame');
+    // TODO error handling
+    await addUserCallable({gameId: this.id}).toPromise();
   }
 
   public async ngOnInit(): Promise<void> {
@@ -58,8 +61,5 @@ export class GamePageComponent implements OnInit {
     if (this.selectedCard) { this.selectedCard.selected = false; }
     this.selectedCard = this.cards.find(x => x.id === id);
     this.selectedCard.selected = !this.selectedCard.selected;
-    const helloWorldCallable = this.functions.httpsCallable('helloWorld');
-    const res = await helloWorldCallable({}).toPromise();
-    console.log(res);
   }
 }

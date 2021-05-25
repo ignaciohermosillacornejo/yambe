@@ -1,17 +1,73 @@
 import * as functions from "firebase-functions";
+import admin = require("firebase-admin");
+admin.initializeApp();
 
-// Start writing Firebase Functions
-// https://firebase.google.com/docs/functions/typescript
-
-export const helloWorld = functions.https.onCall((data, context) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
+export const addUserToGame = functions.https.onCall(async (data, context) => {
+  functions.logger.info("Adding user to game - start");
 
   if (!context.auth) {
-    // eslint-disable-next-line max-len
-    throw new functions.https.HttpsError("failed-precondition", "The function must be called while authenticated.");
+    throw new functions.https.HttpsError(
+        "unauthenticated",
+        "The function must be called while authenticated.",
+    );
   }
 
+  if (!data || !data.gameId) {
+    throw new functions.https.HttpsError(
+        "invalid-argument",
+        "The param game id is invalid",
+    );
+  }
+
+  const gameRef = admin
+      .firestore()
+      .collection("games")
+      .doc(data.gameId);
+
+  gameRef.update({
+    players: admin.firestore.FieldValue.arrayUnion(context.auth.uid),
+  });
+
+
+  functions.logger.info("Adding user to game - success");
+
   return {
-    message: "hello world!",
+    result: "success",
+  };
+});
+
+
+// eslint-disable-next-line max-len
+export const removeUserFromGame = functions.https.onCall(async (data, context) => {
+  functions.logger.info("Removing user from game - start");
+
+  if (!context.auth) {
+    throw new functions.https.HttpsError(
+        "unauthenticated",
+        "The function must be called while authenticated.",
+    );
+  }
+
+  if (!data || !data.gameId) {
+    throw new functions.https.HttpsError(
+        "invalid-argument",
+        "The param game id is invalid",
+    );
+  }
+
+  const gameRef = admin
+      .firestore()
+      .collection("games")
+      .doc(data.gameId);
+
+  gameRef.update({
+    players: admin.firestore.FieldValue.arrayRemove(context.auth.uid),
+  });
+
+
+  functions.logger.info("Removing user from game - success");
+
+  return {
+    result: "success",
   };
 });
