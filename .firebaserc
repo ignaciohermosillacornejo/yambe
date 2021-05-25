@@ -9,6 +9,7 @@
     }
   },
   "projects": {
-    "dev": "yambe-dev"
+    "dev": "yambe-dev",
+    "default": "yambe-dev"
   }
 }

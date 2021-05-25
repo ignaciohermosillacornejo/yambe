@@ -1,0 +1,17 @@
+import * as functions from "firebase-functions";
+
+// Start writing Firebase Functions
+// https://firebase.google.com/docs/functions/typescript
+
+export const helloWorld = functions.https.onCall((data, context) => {
+  functions.logger.info("Hello logs!", {structuredData: true});
+
+  if (!context.auth) {
+    // eslint-disable-next-line max-len
+    throw new functions.https.HttpsError("failed-precondition", "The function must be called while authenticated.");
+  }
+
+  return {
+    message: "hello world!",
+  };
+});

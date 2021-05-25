@@ -10,6 +10,7 @@ import { CardComponentModule } from './components/card/card.component.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireFunctionsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
@@ -32,7 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
   ],
   providers: [
-    AuthService
+    AuthService,
   ]
 })
 export class AppModule { }

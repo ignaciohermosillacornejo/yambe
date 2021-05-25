@@ -3,6 +3,7 @@ import { Card } from 'src/app/models/card.interface';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { QUESTION } from 'src/constants/cards.constant';
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Component({
   selector: 'app-game',
@@ -18,6 +19,7 @@ export class GamePageComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     private activatedRoute: ActivatedRoute,
+    private functions: AngularFireFunctions,
   ) { }
 
   @HostListener('window:beforeunload')
@@ -52,9 +54,12 @@ export class GamePageComponent implements OnInit {
     }
   }
 
-  public selectCard(id: string) {
+  public async selectCard(id: string) {
     if (this.selectedCard) { this.selectedCard.selected = false; }
     this.selectedCard = this.cards.find(x => x.id === id);
     this.selectedCard.selected = !this.selectedCard.selected;
+    const helloWorldCallable = this.functions.httpsCallable('helloWorld');
+    const res = await helloWorldCallable({}).toPromise();
+    console.log(res);
   }
 }
