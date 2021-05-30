@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "sourceMap": false,
+    "inlineSourceMap": true,
+    "noEmit": true
+  },
+  "include": [
+    "test/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
