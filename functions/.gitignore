@@ -8,4 +8,5 @@ typings/
 # Node.js dependency directory
 node_modules/
 
+# ignore our firebase service credentials
 service-account.json
