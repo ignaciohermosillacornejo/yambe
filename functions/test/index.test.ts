@@ -8,7 +8,7 @@ const testEnv = require('firebase-functions-test')({
 }, './service-account.json');
 // we must import functions after testEnv initialization
 // eslint-disable-next-line import/order, import/first
-import { addUserToGame } from '../src/index';
+import { addUserToGame } from '../src/game/index';
 
 describe('addUserToGame', function () {
   let wrapped: any;
