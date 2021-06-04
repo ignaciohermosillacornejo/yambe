@@ -142,7 +142,7 @@ describe('addUserToGame', function () {
     expect(game.currentPlayer).to.be.equal(2);
   });
 
-  it.only('should add user to end of player list if current player is at position 0', async function () {
+  it('should add user to end of player list if current player is at position 0', async function () {
     const newGame = newGameObject();
     const uid = 'uid';
     const data = { gameId };
