@@ -4,7 +4,6 @@ module.exports = {
     mocha: true,
   },
   globals: {},
-  extends: 'airbnb-base',
   plugins: [
     '@typescript-eslint',
     'mocha',
@@ -37,5 +36,9 @@ module.exports = {
     'chai-expect/terminating-properties': 'error',
     quotes: ['error', 'single'],
     'import/extensions': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-default-export': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
+    'no-unused-vars': 'off',
   },
 };

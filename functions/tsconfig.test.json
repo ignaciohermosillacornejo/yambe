@@ -3,10 +3,12 @@
   "compilerOptions": {
     "sourceMap": false,
     "inlineSourceMap": true,
-    "noEmit": true
+    "noEmit": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
   },
   "include": [
-    "test",
+    "./test/**/*.ts",
   ],
   "exclude": [
     "node_modules",

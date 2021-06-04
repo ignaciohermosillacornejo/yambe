@@ -3,7 +3,7 @@ module.exports = {
     es6: true,
     mocha: true,
   },
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 2020 },
   globals: {},
   settings: {
