@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 import { isAuthed } from '../helper/auth';
 import { validateGameData } from './helper/game-data-validation';
 import { newGameObject } from './helper/new-empty-game';
+import { loadDeck } from './helper/load-card-teck';
 
 /**
  * Adds user to game, if game doesn't exist it creates one before adding the user
@@ -17,15 +18,22 @@ const addUserToGame = functions.https.onCall(async (data, context) => {
   validateGameData(data);
 
   const { uid } = context.auth!;
+  const { gameId, deckChoice } = data;
 
   const gameDoc = await admin
     .firestore()
     .collection('games')
-    .doc(data.gameId)
+    .doc(gameId)
     .get();
 
   // if game exists, we get it's data, otherwise we get a new game object
-  const game = (gameDoc.exists) ? gameDoc.data()! : newGameObject();
+  let game;
+  if (gameDoc.exists) {
+    game = gameDoc.data()!;
+  } else {
+    game = newGameObject();
+    await loadDeck({ gameId, deckChoice });
+  }
 
   if (game.players.includes(uid)) {
     functions.logger.info('Adding user to game - repeated user');
@@ -47,7 +55,7 @@ const addUserToGame = functions.https.onCall(async (data, context) => {
   await admin
     .firestore()
     .collection('games')
-    .doc(data.gameId)
+    .doc(gameId)
     .set(game);
 
   functions.logger.info('Adding user to game - success');

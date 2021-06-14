@@ -33,7 +33,7 @@ describe('addUserToGame', function () {
 
   it('should create game and add user when game is not created', async function () {
     const uid = 'uid';
-    const data = { gameId };
+    const data = { gameId, deckChoice: 'test' };
     const context = {
       auth: { uid },
     };
@@ -53,6 +53,21 @@ describe('addUserToGame', function () {
     expect(logStubs.info).to.be.calledWith('Adding user to game - success');
     expect(game.players).to.be.an('array').that.deep.equals([uid]);
     expect(game.currentPlayer).to.be.equal(0);
+
+    const deckSnap = await admin
+      .firestore()
+      .collection('games')
+      .doc(gameId)
+      .collection('deck')
+      .get();
+
+    expect(deckSnap).to.exist;
+    const deck = deckSnap.docs.map(doc => doc.data());
+    expect(deck).to.be.length(2);
+    expect(deck).to.be.an('array').that.deep.equalInAnyOrder([
+      { type: 'answer', content: 'hello world answer' },
+      { type: 'question', content: 'hello world question' },
+    ]);
   });
 
   it('should add user to game that already exists with no other players', async function () {
