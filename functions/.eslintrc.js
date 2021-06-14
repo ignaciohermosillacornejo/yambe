@@ -56,5 +56,7 @@ module.exports = {
     'import/no-default-export': 'error',
     'import/extensions': 'off',
     'import/no-unresolved': 'error',
+    indent: 'off',
+    '@typescript-eslint/indent': ['error', 2],
   },
 };
