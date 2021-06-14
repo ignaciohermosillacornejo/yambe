@@ -3,6 +3,7 @@ import { firestore } from 'firebase-admin';
 /**
  * Fetches the requested deck from the Cards collections
  * and copies it to the deck subcollection in the game
+ * limited to 500 cards per deck per firestore limits
  */
 const loadDeck = async (data: { gameId: string, deckChoice: string}) => {
   const { gameId, deckChoice = 'default' } = data;

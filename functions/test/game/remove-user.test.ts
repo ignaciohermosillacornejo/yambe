@@ -97,7 +97,7 @@ describe('removeUserFromGame', function () {
     };
     newGame.players = [uid];
     newGame.currentPlayer = 0;
-    await createGame(gameId, newGame);
+    await createGame(gameId, newGame, 'test');
 
     const res = await wrapped(data, context);
 
@@ -113,6 +113,17 @@ describe('removeUserFromGame', function () {
 
     expect(game).to.not.exist;
     expect(logStubs.info).to.be.calledWith('Removing user from game - deleting game');
+
+    const gameDeckSnap = await admin
+      .firestore()
+      .collection('games')
+      .doc(gameId)
+      .collection('deck')
+      .get();
+
+    const gameDeck = gameDeckSnap.docs;
+
+    expect(gameDeck).to.be.empty;
   });
 
   it('should throw unauthenticated exception if no valid uid is sent', async function () {

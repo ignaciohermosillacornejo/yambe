@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 import { isAuthed } from '../helper/auth';
 import { validateGameData } from './helper/game-data-validation';
 import { newGameObject } from './helper/new-empty-game';
-import { loadDeck } from './helper/load-card-teck';
+import { loadDeck } from './helper/load-card-deck';
 
 /**
  * Adds user to game, if game doesn't exist it creates one before adding the user
