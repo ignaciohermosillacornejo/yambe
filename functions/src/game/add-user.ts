@@ -5,6 +5,7 @@ import { isAuthed } from '../helper/auth';
 import { validateGameData } from './helper/game-data-validation';
 import { newGameObject } from './helper/new-empty-game';
 import { loadDeck } from './helper/load-card-deck';
+import { dealCards } from './helper/deal-card';
 
 /**
  * Adds user to game, if game doesn't exist it creates one before adding the user
@@ -19,12 +20,9 @@ const addUserToGame = functions.https.onCall(async (data, context) => {
 
   const { uid } = context.auth!;
   const { gameId, deckChoice } = data;
+  const gameRef = admin.firestore().collection('games').doc(gameId);
 
-  const gameDoc = await admin
-    .firestore()
-    .collection('games')
-    .doc(gameId)
-    .get();
+  const gameDoc = await gameRef.get();
 
   // if game exists, we get it's data, otherwise we get a new game object
   let game;
@@ -32,7 +30,7 @@ const addUserToGame = functions.https.onCall(async (data, context) => {
     game = gameDoc.data()!;
   } else {
     game = newGameObject();
-    await loadDeck({ gameId, deckChoice });
+    await loadDeck({ gameRef, deckChoice });
   }
 
   if (game.players.includes(uid)) {
@@ -52,11 +50,13 @@ const addUserToGame = functions.https.onCall(async (data, context) => {
   // else it will increase by 1
   game.currentPlayer = (game.currentPlayer !== null) ? game.currentPlayer + 1 : 0;
 
-  await admin
-    .firestore()
-    .collection('games')
-    .doc(gameId)
-    .set(game);
+  // we update/create the game with the new player
+  await gameRef.set(game);
+
+  // now that the player is part of the game, we give him his starting hand cards
+  await dealCards({
+    gameRef, userId: uid, numberOfCards: 8, type: 'answer',
+  });
 
   functions.logger.info('Adding user to game - success');
 

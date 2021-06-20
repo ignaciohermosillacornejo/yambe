@@ -22,8 +22,11 @@ const shuffle = (array: any[]) => {
  * and copies it to the deck subcollection in the game
  * limited to 500 cards per deck per firestore limits
  */
-const loadDeck = async (data: { gameId: string, deckChoice: string}) => {
-  const { gameId, deckChoice = 'default' } = data;
+const loadDeck = async (data: {
+  gameRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>,
+  deckChoice: string,
+}) => {
+  const { gameRef, deckChoice = 'default' } = data;
 
   const cardsSnap = await firestore()
     .collection('decks')
@@ -35,7 +38,7 @@ const loadDeck = async (data: { gameId: string, deckChoice: string}) => {
   shuffle(cards);
 
   cards.forEach(async (doc) => {
-    await firestore().collection('games').doc(gameId).collection('deck')
+    await gameRef.collection('deck')
       .add(doc.data());
   });
 };
