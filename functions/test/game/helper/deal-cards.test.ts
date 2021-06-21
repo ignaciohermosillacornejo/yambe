@@ -87,4 +87,15 @@ describe('dealAnswerCards', function () {
     expect(gameDeckSnap.empty).to.be.false;
     expect(gameDeckSnap.docs).to.be.length(7);
   });
+
+  it('should return in case there are no more cards left deal', async function () {
+    await dealAnswerCards({
+      gameRef, userId, numberOfCards: 1,
+    });
+    const playerCardsSnap = await gameRef.collection('playerHands').doc(userId).get();
+    expect(playerCardsSnap.exists).to.be.true;
+    const { cards } = playerCardsSnap.data()!;
+    expect(cards).to.be.empty;
+    expect(logStubs.info).to.be.calledWith('Dealing cards - empty deck');
+  });
 });
