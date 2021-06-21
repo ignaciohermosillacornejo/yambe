@@ -1,5 +1,6 @@
+let startIndex = 0;
+
 function* indexGenerator() {
-  let startIndex = 0;
   while (true) {
     yield startIndex;
     startIndex += 1;

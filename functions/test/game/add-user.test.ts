@@ -54,6 +54,11 @@ describe('addUserToGame', function () {
     expect(game.players).to.be.an('array').that.deep.equals([uid]);
     expect(game.currentPlayer).to.be.equal(0);
 
+    /**
+     * test deck (check firestore) is 2 cards long, we expect that the
+     * answer card will be dealt and be present in the player hand,
+     * the question will remain in game deck
+     */
     const deckSnap = await admin
       .firestore()
       .collection('games')
@@ -63,11 +68,27 @@ describe('addUserToGame', function () {
 
     expect(deckSnap).to.exist;
     const deck = deckSnap.docs.map(doc => doc.data());
-    expect(deck).to.be.length(2);
-    expect(deck).to.be.an('array').that.deep.equalInAnyOrder([
-      { type: 'answer', content: 'hello world answer' },
+    expect(deck).to.be.length(1);
+    expect(deck).to.be.an('array').that.deep.equal([
       { type: 'question', content: 'hello world question' },
     ]);
+
+    const playerHandSnap = await admin
+      .firestore()
+      .collection('games')
+      .doc(gameId)
+      .collection('playerHands')
+      .doc(uid)
+      .get();
+
+    expect(playerHandSnap).to.exist;
+    const playerHand = playerHandSnap.data();
+    expect(playerHand.cards).to.be.length(1);
+    expect(playerHand).excludingEvery('id').to.be.deep.equal({
+      cards: [
+        { type: 'answer', content: 'hello world answer' },
+      ],
+    });
   });
 
   it('should add user to game that already exists with no other players', async function () {

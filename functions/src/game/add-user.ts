@@ -5,7 +5,7 @@ import { isAuthed } from '../helper/auth';
 import { validateGameData } from './helper/game-data-validation';
 import { newGameObject } from './helper/new-empty-game';
 import { loadDeck } from './helper/load-card-deck';
-import { dealCards } from './helper/deal-card';
+import { dealAnswerCards } from './helper/deal-card';
 
 /**
  * Adds user to game, if game doesn't exist it creates one before adding the user
@@ -54,8 +54,8 @@ const addUserToGame = functions.https.onCall(async (data, context) => {
   await gameRef.set(game);
 
   // now that the player is part of the game, we give him his starting hand cards
-  await dealCards({
-    gameRef, userId: uid, numberOfCards: 8, type: 'answer',
+  await dealAnswerCards({
+    gameRef, userId: uid, numberOfCards: 8,
   });
 
   functions.logger.info('Adding user to game - success');

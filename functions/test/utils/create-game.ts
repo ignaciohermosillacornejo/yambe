@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin';
-import { dealCards } from '../../src/game/helper/deal-card';
+import { dealAnswerCards } from '../../src/game/helper/deal-card';
 import { loadDeck } from '../../src/game/helper/load-card-deck';
 
 const createGame = async (
@@ -14,7 +14,7 @@ const createGame = async (
     await loadDeck({ gameRef, deckChoice });
   }
   if (dealCardsArgs) {
-    await dealCards(dealCardsArgs);
+    await dealAnswerCards(dealCardsArgs);
   }
 };
 

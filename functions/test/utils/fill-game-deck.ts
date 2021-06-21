@@ -17,7 +17,7 @@ const fillGameDeck = async (
   const batch = admin.firestore().batch();
   newAnswerCards.concat(newQuestionCards).forEach(
     async (card) => {
-      const cardRef = gameRef.collection('deck').doc(String(card.id));
+      const cardRef = gameRef.collection('deck').doc(card.id);
       batch.set(cardRef, { type: card.type, content: card.content });
     },
   );
