@@ -40,13 +40,16 @@ describe('dealAnswerCards', function () {
     await dealAnswerCards({
       gameRef, userId, numberOfCards: 3,
     });
-    const playerCardsRef = await gameRef.collection('playerHands').doc(userId).get();
-    const { cards } = playerCardsRef.data()!;
+    const playerCardsSnap = await gameRef.collection('playerHands').doc(userId).get();
+    const { cards } = playerCardsSnap.data()!;
     expect(cards).to.be.length(3);
-    cards.forEach(e => {
+    cards.forEach((e: { type: any; }) => {
       expect(e).to.include.keys(['type', 'content', 'id']);
       expect(e.type).to.be.equal('answer');
     });
+    const gameDeckSnap = await gameRef.collection('deck').get();
+    expect(gameDeckSnap.empty).to.be.false;
+    expect(gameDeckSnap.docs).to.be.length(7);
   });
 
   it('should deal a maximum of 8 cards to a player despite incorrect param', async function () {
@@ -54,13 +57,16 @@ describe('dealAnswerCards', function () {
     await dealAnswerCards({
       gameRef, userId, numberOfCards: 10,
     });
-    const playerCardsRef = await gameRef.collection('playerHands').doc(userId).get();
-    const { cards } = playerCardsRef.data()!;
+    const playerCardsSnap = await gameRef.collection('playerHands').doc(userId).get();
+    const { cards } = playerCardsSnap.data()!;
     expect(cards).to.be.length(8);
-    cards.forEach(e => {
+    cards.forEach((e: { type: any; }) => {
       expect(e).to.include.keys(['type', 'content', 'id']);
       expect(e.type).to.be.equal('answer');
     });
+    const gameDeckSnap = await gameRef.collection('deck').get();
+    expect(gameDeckSnap.empty).to.be.false;
+    expect(gameDeckSnap.docs).to.be.length(2);
   });
 
   it('should deal 3 cards to a player that has 5 cards already when asked to deal 10 cards', async function () {
@@ -70,12 +76,15 @@ describe('dealAnswerCards', function () {
     await dealAnswerCards({
       gameRef, userId, numberOfCards: 10,
     });
-    const playerCardsRef = await gameRef.collection('playerHands').doc(userId).get();
-    const { cards } = playerCardsRef.data()!;
+    const playerCardsSnap = await gameRef.collection('playerHands').doc(userId).get();
+    const { cards } = playerCardsSnap.data()!;
     expect(cards).to.be.length(8);
-    cards.forEach(e => {
+    cards.forEach((e: { type: any; }) => {
       expect(e).to.include.keys(['type', 'content', 'id']);
       expect(e.type).to.be.equal('answer');
     });
+    const gameDeckSnap = await gameRef.collection('deck').get();
+    expect(gameDeckSnap.empty).to.be.false;
+    expect(gameDeckSnap.docs).to.be.length(7);
   });
 });

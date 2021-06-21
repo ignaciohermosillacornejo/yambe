@@ -25,7 +25,11 @@ const dealAnswerCards = async (
   const currentCardsLength = currentCards.exists ? currentCards.data()!.cards.length : 0;
 
   if (currentCardsLength + numberOfCards > 8) {
-    functions.logger.warn('Dealing cards - invalid param, player would have more than 8 cards');
+    functions.logger.warn(
+      `Dealing cards - 
+      player currently has ${currentCardsLength} but was asked to 
+      deal ${numberOfCards}`,
+    );
     numberOfCards = 8 - currentCardsLength;
   }
 
